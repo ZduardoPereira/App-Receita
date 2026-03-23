@@ -1,7 +1,6 @@
 import { Router } from "express";
 import { db } from "../db";
 import { hashPassword, comparePassword } from "../utils/hash";
-import { error } from "node:console";
 
 export const authRoutes = Router();
 
@@ -14,11 +13,18 @@ authRoutes.post("/register", async (req, res) => {
     const password_hash = await hashPassword(password);
 
     try {
-        await db.query(
-            "INSERT INTO users (email,password_hash) VALUES ($1, $2)",
+        const result = await db.query(
+            "INSERT INTO users (email,password_hash) VALUES ($1, $2) RETURNING id, email",
             [email, password_hash]
         );
-        return res.status(201).json({ ok: true});
+
+        const user = result.rows[0];
+
+
+        return res.status(201).json({
+            token: `fake-token-${user.id}`,
+            user: { id: user.id, email: user.email },
+        });
     } catch (err: any){
         if (err?.code === "23505") return res.status(409).json({ error: "email já cadastrado"});
         return res.status(500).json({ error: "erro no servidor"});

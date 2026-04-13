@@ -2,24 +2,31 @@ import express from "express";
 import cors from "cors";
 import { authRoutes } from "./routes/auth.routes";
 import { planRoutes } from "./routes/plan.routes";
+import { weightRoutes } from "./routes/weight.routes";
+import { workoutRoutes } from "./routes/workout.routes";
+import { profileRoutes } from "./routes/profile.routes";
+import { workoutTemplatesRoutes } from "./routes/workout-templates.routes";
+import { workoutSessionsRoutes } from "./routes/workout-sessions.routes";
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-
 app.use("/auth", authRoutes);
-
 app.use("/plans", planRoutes);
+app.use("/weight-logs", weightRoutes);
+app.use("/workout-logs", workoutRoutes);
+app.use("/profile", profileRoutes);
+app.use("/workout-templates", workoutTemplatesRoutes);
+app.use("/workout-sessions", workoutSessionsRoutes);
 
 app.get("/health", (_req, res) => {
-    res.json({ ok: true});
+    res.json({ ok: true });
 });
-
 
 const PORT = 3000;
 
 app.listen(PORT, "0.0.0.0", () => {
-    console.log(`API rodando em http://localhost:${PORT}`)
+    console.log(`API rodando em http://localhost:${PORT}`);
 });

@@ -1,0 +1,1 @@
+ALTER TABLE workout_logs ADD COLUMN IF NOT EXISTS set_number INTEGER;

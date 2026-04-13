@@ -98,3 +98,20 @@ planRoutes.post("/", async (req, res) => {
     return res.status(500).json({ error: "erro interno" });
   }
 });
+
+planRoutes.get("/:userId/latest", async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const result = await db.query(
+      "SELECT * FROM plans WHERE user_id = $1 ORDER BY id DESC LIMIT 1",
+      [userId]
+    );
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "nenhum plano encontrado" });
+    }
+    return res.json(result.rows[0]);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "erro interno" });
+  }
+});

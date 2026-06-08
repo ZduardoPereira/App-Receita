@@ -7,6 +7,8 @@ import { workoutRoutes } from "./routes/workout.routes";
 import { profileRoutes } from "./routes/profile.routes";
 import { workoutTemplatesRoutes } from "./routes/workout-templates.routes";
 import { workoutSessionsRoutes } from "./routes/workout-sessions.routes";
+import { foodLogRoutes } from "./routes/food-logs.routes";
+import { waterRoutes } from "./routes/water.routes";
 
 const app = express();
 
@@ -20,6 +22,8 @@ app.use("/workout-logs", workoutRoutes);
 app.use("/profile", profileRoutes);
 app.use("/workout-templates", workoutTemplatesRoutes);
 app.use("/workout-sessions", workoutSessionsRoutes);
+app.use("/food-logs", foodLogRoutes);
+app.use("/water", waterRoutes);
 
 app.get("/health", (_req, res) => {
     res.json({ ok: true });

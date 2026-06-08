@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(tree \"C:\\\\Users\\\\jose\\\\Desktop\\\\Projetos GitHub\\\\App-Receita\" -L 3 -I \"node_modules\" 2>$null)",
+      "PowerShell(head -100)",
+      "Bash(psql -h localhost -p 5432 -U postgres -d gerson_app -f backend/migration_v4.sql)",
+      "Read(//c/Program Files/PostgreSQL/**)",
+      "Bash(node -e \"const {Pool} = require\\('pg'\\); const p = new Pool\\({host:'localhost',port:5432,user:'postgres',password:'fatec',database:'gerson_app'}\\); p.query\\('SELECT 1'\\).then\\(\\(\\)=>console.log\\('ok'\\)\\).catch\\(e=>console.error\\(e.message\\)\\).finally\\(\\(\\)=>p.end\\(\\)\\);\")",
+      "Bash(node -e \"const {Pool} = require\\('pg'\\); const fs = require\\('fs'\\); const p = new Pool\\({host:'localhost',port:5432,user:'postgres',password:'fatec',database:'gerson_app'}\\); const sql = fs.readFileSync\\('./migration_v4.sql','utf8'\\); p.query\\(sql\\).then\\(\\(\\)=>console.log\\('Migration OK'\\)\\).catch\\(e=>console.error\\('ERRO:',e.message\\)\\).finally\\(\\(\\)=>p.end\\(\\)\\);\")",
+      "Bash(node -e \"const {Pool} = require\\('pg'\\); const p = new Pool\\({host:'localhost',port:5432,user:'postgres',password:'fatec',database:'gerson_app'}\\); p.query\\(\\\\\"SELECT table_name FROM information_schema.tables WHERE table_schema='public' ORDER BY table_name\\\\\"\\).then\\(r=>console.log\\(r.rows.map\\(x=>x.table_name\\).join\\(', '\\)\\)\\).catch\\(e=>console.error\\(e.message\\)\\).finally\\(\\(\\)=>p.end\\(\\)\\);\")",
+      "Bash(curl -s http://localhost:3000/health)"
+    ]
+  }
+}
